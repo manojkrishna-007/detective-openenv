@@ -1,0 +1,11 @@
+name: detective-openenv
+description: Real-world investigative reasoning under uncertainty with noisy and conflicting evidence
+version: 1.0
+
+tasks:
+  easy:
+    description: Minimal clues, low noise, straightforward reasoning
+  medium:
+    description: Moderate noise and conflicting evidence
+  hard:
+    description: High noise, misleading clues, requires strong reasoning
