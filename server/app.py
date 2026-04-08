@@ -1,0 +1,56 @@
+from fastapi import FastAPI
+from pydantic import BaseModel
+from env import DetectiveEnv
+
+app = FastAPI()
+
+env_instance = None
+
+
+class ActionInput(BaseModel):
+    action: str
+
+
+@app.get("/")
+def root():
+    return {
+        "message": "Detective OpenEnv is running",
+        "endpoints": {
+            "reset": "/reset (POST)",
+            "step": "/step (POST)",
+            "state": "/state (GET)"
+        }
+    }
+
+
+@app.post("/reset")
+def reset():
+    global env_instance
+
+    env_instance = DetectiveEnv(difficulty="easy")
+
+    obs = env_instance.reset()
+
+    return {
+        "observation": obs.dict(),
+        "done": False
+    }
+
+
+@app.post("/step")
+def step(action: ActionInput):
+    global env_instance
+
+    obs, reward, done, info = env_instance.step(action)
+
+    return {
+        "observation": obs.dict(),
+        "reward": reward.value,
+        "done": done,
+        "info": info
+    }
+
+
+@app.get("/state")
+def state():
+    return env_instance.state()
