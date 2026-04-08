@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+import uvicorn
 from env import DetectiveEnv
 
 app = FastAPI()
@@ -54,3 +55,14 @@ def step(action: ActionInput):
 @app.get("/state")
 def state():
     return env_instance.state()
+
+
+# ======================
+# REQUIRED FOR VALIDATOR
+# ======================
+def main():
+    uvicorn.run("server.app:app", host="0.0.0.0", port=7860)
+
+
+if __name__ == "__main__":
+    main()
