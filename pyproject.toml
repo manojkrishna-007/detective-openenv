@@ -1,7 +1,7 @@
 [project]
 name = "detective-openenv"
 version = "1.0.0"
-description = "AI Detective reasoning environment for OpenEnv"
+description = "AI Detective reasoning environment"
 authors = [{ name = "Manoj Krishna" }]
 requires-python = ">=3.10"
 
@@ -9,8 +9,12 @@ dependencies = [
     "fastapi",
     "uvicorn",
     "pydantic",
-    "openai"
+    "openai",
+    "openenv>=0.2.0"
 ]
 
+[project.scripts]
+start = "server.app:app"
+
 [tool.openenv]
-entry_point = "server:app"
+entry_point = "server.app:app"
